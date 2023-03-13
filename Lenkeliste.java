@@ -1,11 +1,13 @@
 abstract class Lenkeliste<E> implements Liste<E> {
-    private Node forste = null; //null hvis ingen elementer i lista, en nodereferanse ellers
-    private Node siste = null; ////null hvis ingen elementer i lista, en nodereferanse ellers
-    private int stoerrelse = 0; //0 hvis forste = siste = null (ingen listeelementer), >0 ellers
+    //I denne superklassen legges elementer inn bakerst og elementer fjernes forrerst (FIFO)
 
-    private class Node {
+    protected Node forste = null; //null hvis ingen elementer i lista, en nodereferanse ellers
+    protected Node siste = null; ////null hvis ingen elementer i lista, en nodereferanse ellers
+    protected int stoerrelse = 0; //0 hvis forste = siste = null (ingen listeelementer), >0 ellers
+
+    protected class Node {
         Node neste = null; //null hvis bare én node i lista, en nodereferanse ellers
-        E data = null; //aldri null naar et nodeobjekt er opprettet
+        E data = null; //aldri null naar et nodeobjekt er opprettet med data
 
         Node(E data) {
             this.data = data;
