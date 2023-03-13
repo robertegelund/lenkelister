@@ -1,74 +1,63 @@
-import java.util.Iterator;
-
-class Lenkeliste<E> implements Iterable<E> {
-    private Node first = null;
-    private Node last = null;
-    private int size = 0;
+abstract class Lenkeliste<E> implements Liste<E> {
+    private Node forste = null; //null hvis ingen elementer i lista, en nodereferanse ellers
+    private Node siste = null; ////null hvis ingen elementer i lista, en nodereferanse ellers
+    private int stoerrelse = 0; //0 hvis forste = siste = null (ingen listeelementer), >0 ellers
 
     private class Node {
-        Node next = null;
-        E data;
+        Node neste = null; //null hvis bare én node i lista, en nodereferanse ellers
+        E data = null; //aldri null naar et nodeobjekt er opprettet
 
         Node(E data) {
             this.data = data;
         }
     }
 
-    private class LenkelisteIterator implements Iterator<E> {
-        int counter = 0;
-
-        @Override
-        public boolean hasNext() {
-            return counter < size;            
-        }
-
-        @Override
-        public E next() {
-            counter++;
-            return get(counter-1);
-        }
-    }
-
-    public void add(E data) {
-        Node newNode = new Node(data);
-        size++;
-        if(first == null) {
-            first = last = newNode;
+    @Override
+    public void leggTil(E data) {
+        Node nyNode = new Node(data);
+        stoerrelse++;
+        if(forste == null) {
+            forste = siste = nyNode;
             return;
         }
-        last.next = newNode;
-        last = newNode;
+        siste.neste = nyNode;
+        siste = nyNode;
     }
 
-    public E get(int pos) {
-        if(pos >= size) return null;
-        Node pointer = first;
-        for(int i = 0; i < pos; i++) {
-            pointer = pointer.next;
-        }
-        return pointer.data;
+    @Override
+    public E hent() throws UgyldigListeindeks {
+        if(stoerrelse == 0) throw new UgyldigListeindeks(0);
+        return forste.data;
     }
 
-    public E remove() {
-        if(size == 0) return null;
+    @Override
+    public E fjern() throws UgyldigListeindeks {
+        if(stoerrelse == 0) throw new UgyldigListeindeks(-1);
         
-        E firstValue = first.data;
-        if(first != last) {
-            first = first.next;
+        E forsteVerdi = forste.data;
+        if(forste != siste) {
+            forste = forste.neste;
         } else {
-            first = last = null;
+            forste = siste = null;
         }
         
-        size--;
-        return firstValue;
+        stoerrelse--;
+        return forsteVerdi;
     }
 
-    public int getSize() { return size; }
-    public Node getFirst() { return first; }
-    public Node getLast() { return last; }
-
-    public Iterator<E> iterator() {
-        return new LenkelisteIterator();
+    @Override
+    public int stoerrelse() { 
+        return stoerrelse; 
     }
 
+    @Override 
+    public String toString() {
+        String innhold = "";
+        Node peker = forste;
+        while(peker != null) {
+            innhold += peker.data + "\n>>";
+            peker = peker.neste;
+        }
+        return innhold;
+    }
 }
