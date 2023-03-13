@@ -1,4 +1,4 @@
-class IndeksertListe<E> extends Lenkeliste<E> {
+public class IndeksertListe<E> extends Lenkeliste<E> {
     
     public void leggTil(int pos, E x) {
         if(pos < 0 || pos > stoerrelse) {
