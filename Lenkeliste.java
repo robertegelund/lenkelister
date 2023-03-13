@@ -15,8 +15,8 @@ abstract class Lenkeliste<E> implements Liste<E> {
     }
 
     @Override
-    public void leggTil(E data) {
-        Node nyNode = new Node(data);
+    public void leggTil(E x) {
+        Node nyNode = new Node(x);
         stoerrelse++;
         if(forste == null) {
             forste = siste = nyNode;
@@ -55,11 +55,13 @@ abstract class Lenkeliste<E> implements Liste<E> {
     @Override 
     public String toString() {
         String innhold = "";
-        Node peker = forste;
+        Node peker = forste; int teller = 0;
         while(peker != null) {
-            innhold += peker.data + "\n>>";
+            innhold += "\n" + teller + ": " + peker.data;
             peker = peker.neste;
+            teller++;
         }
+        innhold += "\n";
         return innhold;
     }
 }
