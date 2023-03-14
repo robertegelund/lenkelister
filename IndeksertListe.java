@@ -1,6 +1,6 @@
 public class IndeksertListe<E> extends Lenkeliste<E> {
     
-    public void leggTil(int pos, E x) {
+    public void leggTil(int pos, E x) throws UgyldigListeindeks {
         if(pos < 0 || pos > stoerrelse) {
             throw new UgyldigListeindeks(pos);
         }
@@ -53,7 +53,7 @@ public class IndeksertListe<E> extends Lenkeliste<E> {
         return peker.data;
     }
 
-    public E fjern(int pos) {
+    public E fjern(int pos) throws UgyldigListeindeks {
         if(pos < 0 || pos >= stoerrelse || stoerrelse == 0) {
             throw new UgyldigListeindeks(pos);
         }
