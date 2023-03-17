@@ -7,7 +7,7 @@ class Stabel<E> extends Lenkeliste<E> {
         Node nyNode = new Node(x);
         stoerrelse++;
         if(forste == null) {
-            forste = siste = nyNode;
+            forste = nyNode;
             return;
         }
         nyNode.neste = forste;

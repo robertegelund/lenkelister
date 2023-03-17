@@ -5,7 +5,7 @@ public class IndeksertListe<E> extends Lenkeliste<E> {
             throw new UgyldigListeindeks(pos);
         }
 
-        if(forste == null || pos == stoerrelse) {
+        if(pos == stoerrelse) {
             super.leggTil(x); 
             return;
         }
